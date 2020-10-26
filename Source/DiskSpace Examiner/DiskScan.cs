@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.IO;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     public class DiskScan : IDisposable
     {

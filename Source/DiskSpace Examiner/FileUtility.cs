@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using Microsoft.Win32.SafeHandles;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     public class FileUtility
     {

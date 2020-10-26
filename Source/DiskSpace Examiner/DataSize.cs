@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DiskSpace_Examiner
 {
@@ -29,7 +30,7 @@ namespace DiskSpace_Examiner
         public static DataSize Gigabyte = new DataSize(g_Gigabyte);
         public static DataSize Terrabyte = new DataSize(g_Terrabyte);
 
-        long Size;
+        public long Size;
 
         public DataSize(long size) { this.Size = size; }
 

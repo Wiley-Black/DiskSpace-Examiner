@@ -9,7 +9,7 @@ using System.IO;
 
 using System.Diagnostics;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     public class ScanResultFile
     {

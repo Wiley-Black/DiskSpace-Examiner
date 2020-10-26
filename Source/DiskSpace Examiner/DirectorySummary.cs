@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Globalization;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     public class DirectorySummary : IXmlSerializable
     {

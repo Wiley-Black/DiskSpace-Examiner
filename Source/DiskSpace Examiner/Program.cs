@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     static class Program
     {

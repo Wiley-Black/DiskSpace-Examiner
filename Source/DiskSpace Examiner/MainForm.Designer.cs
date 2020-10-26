@@ -1,4 +1,4 @@
-﻿namespace DiskSpace_Examiner_2016
+﻿namespace DiskSpace_Examiner
 {
     partial class MainForm
     {
@@ -46,9 +46,10 @@
             // 
             // btnSelectFolder
             // 
-            this.btnSelectFolder.Location = new System.Drawing.Point(12, 12);
+            this.btnSelectFolder.Location = new System.Drawing.Point(16, 15);
+            this.btnSelectFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSelectFolder.Name = "btnSelectFolder";
-            this.btnSelectFolder.Size = new System.Drawing.Size(1005, 27);
+            this.btnSelectFolder.Size = new System.Drawing.Size(1340, 33);
             this.btnSelectFolder.TabIndex = 0;
             this.btnSelectFolder.Text = "Select &Folder...";
             this.btnSelectFolder.UseVisualStyleBackColor = true;
@@ -58,9 +59,10 @@
             // 
             this.lblFolderName.AutoSize = true;
             this.lblFolderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFolderName.Location = new System.Drawing.Point(12, 42);
+            this.lblFolderName.Location = new System.Drawing.Point(16, 52);
+            this.lblFolderName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFolderName.Name = "lblFolderName";
-            this.lblFolderName.Size = new System.Drawing.Size(111, 20);
+            this.lblFolderName.Size = new System.Drawing.Size(138, 25);
             this.lblFolderName.TabIndex = 1;
             this.lblFolderName.Text = "lblFolderName";
             this.lblFolderName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -72,14 +74,15 @@
             legend1.DockedToChartArea = "MainChartArea";
             legend1.Name = "Legend1";
             this.PieChart.Legends.Add(legend1);
-            this.PieChart.Location = new System.Drawing.Point(12, 96);
+            this.PieChart.Location = new System.Drawing.Point(16, 118);
+            this.PieChart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PieChart.Name = "PieChart";
             series1.ChartArea = "MainChartArea";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
             series1.Legend = "Legend1";
             series1.Name = "PieSeries";
             this.PieChart.Series.Add(series1);
-            this.PieChart.Size = new System.Drawing.Size(1005, 381);
+            this.PieChart.Size = new System.Drawing.Size(1340, 469);
             this.PieChart.TabIndex = 2;
             this.PieChart.Text = "chart1";
             // 
@@ -93,9 +96,10 @@
             // 
             this.lblScanStatus.AutoSize = true;
             this.lblScanStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScanStatus.Location = new System.Drawing.Point(12, 488);
+            this.lblScanStatus.Location = new System.Drawing.Point(16, 601);
+            this.lblScanStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblScanStatus.Name = "lblScanStatus";
-            this.lblScanStatus.Size = new System.Drawing.Size(27, 13);
+            this.lblScanStatus.Size = new System.Drawing.Size(34, 17);
             this.lblScanStatus.TabIndex = 3;
             this.lblScanStatus.Text = "Idle.";
             this.lblScanStatus.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -105,9 +109,10 @@
             this.cbRelativeToDisk.AutoSize = true;
             this.cbRelativeToDisk.Checked = true;
             this.cbRelativeToDisk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRelativeToDisk.Location = new System.Drawing.Point(16, 73);
+            this.cbRelativeToDisk.Location = new System.Drawing.Point(21, 90);
+            this.cbRelativeToDisk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbRelativeToDisk.Name = "cbRelativeToDisk";
-            this.cbRelativeToDisk.Size = new System.Drawing.Size(153, 17);
+            this.cbRelativeToDisk.Size = new System.Drawing.Size(199, 21);
             this.cbRelativeToDisk.TabIndex = 4;
             this.cbRelativeToDisk.Text = "Show relative to entire disk";
             this.cbRelativeToDisk.UseVisualStyleBackColor = true;
@@ -118,9 +123,10 @@
             this.cbShowFreeSpace.AutoSize = true;
             this.cbShowFreeSpace.Checked = true;
             this.cbShowFreeSpace.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbShowFreeSpace.Location = new System.Drawing.Point(243, 73);
+            this.cbShowFreeSpace.Location = new System.Drawing.Point(324, 90);
+            this.cbShowFreeSpace.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbShowFreeSpace.Name = "cbShowFreeSpace";
-            this.cbShowFreeSpace.Size = new System.Drawing.Size(106, 17);
+            this.cbShowFreeSpace.Size = new System.Drawing.Size(135, 21);
             this.cbShowFreeSpace.TabIndex = 5;
             this.cbShowFreeSpace.Text = "Show free space";
             this.cbShowFreeSpace.UseVisualStyleBackColor = true;
@@ -130,18 +136,19 @@
             // 
             this.lblInstructions.AutoSize = true;
             this.lblInstructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstructions.Location = new System.Drawing.Point(18, 530);
+            this.lblInstructions.Location = new System.Drawing.Point(24, 652);
+            this.lblInstructions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(992, 26);
+            this.lblInstructions.Size = new System.Drawing.Size(1333, 34);
             this.lblInstructions.TabIndex = 6;
             this.lblInstructions.Text = resources.GetString("lblInstructions.Text");
             this.lblInstructions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 565);
+            this.ClientSize = new System.Drawing.Size(1372, 695);
             this.Controls.Add(this.lblInstructions);
             this.Controls.Add(this.cbShowFreeSpace);
             this.Controls.Add(this.cbRelativeToDisk);
@@ -149,8 +156,9 @@
             this.Controls.Add(this.PieChart);
             this.Controls.Add(this.lblFolderName);
             this.Controls.Add(this.btnSelectFolder);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
-            this.Text = "DiskSpace Examiner 2016";
+            this.Text = "DiskSpace-Examiner";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);

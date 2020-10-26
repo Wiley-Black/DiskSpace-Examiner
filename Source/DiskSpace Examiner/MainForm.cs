@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace DiskSpace_Examiner_2016
+namespace DiskSpace_Examiner
 {
     public partial class MainForm : Form
     {
