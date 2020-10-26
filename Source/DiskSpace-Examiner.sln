@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskSpace Examiner", "DiskSpace Examiner\DiskSpace Examiner.csproj", "{5DAF708C-13FA-4965-87BB-24C5EB2B5189}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskSpace-Examiner", "DiskSpace-Examiner\DiskSpace-Examiner.csproj", "{5DAF708C-13FA-4965-87BB-24C5EB2B5189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

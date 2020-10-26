@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DiskSpace_Examiner</RootNamespace>
-    <AssemblyName>DiskSpace Examiner</AssemblyName>
+    <AssemblyName>DiskSpace-Examiner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
