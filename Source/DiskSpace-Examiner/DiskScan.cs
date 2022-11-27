@@ -200,7 +200,9 @@ namespace DiskSpace_Examiner
             }
             catch (Exception) { Folders = new DirectoryInfo[0]; }                // Skip/treat empty directories that we can't access.  They should show up as "unaccounted" or "outside".
 
+            #if !DEBUG          // In debug mode, we'd rather the exception go uncaught so the debugger can find it.
             try
+            #endif
             {                
                 lock (Current)
                 {
@@ -255,9 +257,17 @@ namespace DiskSpace_Examiner
                         }
 
                         if (!FoundPrevious)
-                        {
-                            Delta.TotalSubfolders++;
-                            Current.Subfolders.Add(new DirectorySummary(Current, di));
+                        {                            
+                            try
+                            {
+                                // Interestingly, a System.IO.PathTooLongException can come up in the DirectorySummary
+                                // constructor when it tries accessing di.Parent.  I could probably dig into the .NET libraries
+                                // and why they allow it to end up this way and whether there is a better solution, but for now 
+                                // we'll just discard these cases.
+                                Current.Subfolders.Add(new DirectorySummary(Current, di));
+                                Delta.TotalSubfolders++;
+                            }
+                            catch (System.IO.PathTooLongException) { }                // Skip/treat empty directories that we can't access.  They should show up as "unaccounted" or "outside".                            
                         }
 
                         LocalFoldersScanned++;
@@ -268,10 +278,12 @@ namespace DiskSpace_Examiner
                     Current.Adjust(Delta);
                 }
             }
+            #if !DEBUG          // In debug mode, we'd rather the exception go uncaught so the debugger can find it.
             catch (Exception exc)
             {
                 throw new Exception(exc.Message + " (while examining directories)", exc);
             }
+            #endif
 
             lock (this) { FoldersScanned += LocalFoldersScanned; }
             return Delta;
