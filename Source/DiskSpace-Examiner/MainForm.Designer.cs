@@ -47,7 +47,7 @@
             // btnSelectFolder
             // 
             this.btnSelectFolder.Location = new System.Drawing.Point(16, 15);
-            this.btnSelectFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(1340, 33);
             this.btnSelectFolder.TabIndex = 0;
@@ -75,7 +75,7 @@
             legend1.Name = "Legend1";
             this.PieChart.Legends.Add(legend1);
             this.PieChart.Location = new System.Drawing.Point(16, 118);
-            this.PieChart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PieChart.Margin = new System.Windows.Forms.Padding(4);
             this.PieChart.Name = "PieChart";
             series1.ChartArea = "MainChartArea";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
@@ -110,7 +110,7 @@
             this.cbRelativeToDisk.Checked = true;
             this.cbRelativeToDisk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRelativeToDisk.Location = new System.Drawing.Point(21, 90);
-            this.cbRelativeToDisk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbRelativeToDisk.Margin = new System.Windows.Forms.Padding(4);
             this.cbRelativeToDisk.Name = "cbRelativeToDisk";
             this.cbRelativeToDisk.Size = new System.Drawing.Size(199, 21);
             this.cbRelativeToDisk.TabIndex = 4;
@@ -124,7 +124,7 @@
             this.cbShowFreeSpace.Checked = true;
             this.cbShowFreeSpace.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbShowFreeSpace.Location = new System.Drawing.Point(324, 90);
-            this.cbShowFreeSpace.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbShowFreeSpace.Margin = new System.Windows.Forms.Padding(4);
             this.cbShowFreeSpace.Name = "cbShowFreeSpace";
             this.cbShowFreeSpace.Size = new System.Drawing.Size(135, 21);
             this.cbShowFreeSpace.TabIndex = 5;
@@ -156,7 +156,8 @@
             this.Controls.Add(this.PieChart);
             this.Controls.Add(this.lblFolderName);
             this.Controls.Add(this.btnSelectFolder);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "DiskSpace-Examiner";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

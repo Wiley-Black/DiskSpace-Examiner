@@ -33,14 +33,14 @@ namespace DiskSpace_Examiner
         {
             try
             {
-                string ScanResultPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DiskSpace_Examiner_2016_Database.xml");
+                string ScanResultPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DiskSpace_Examiner_Database.xml");
                 using (FileStream fs = new FileStream(ScanResultPath, FileMode.Open)) OpenFile = Deserialize(fs);
             }
             catch (Exception) { OpenFile = new ScanResultFile(); }
         }
         public static void Save()
         {
-            string ScanResultPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DiskSpace_Examiner_2016_Database.xml");
+            string ScanResultPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DiskSpace_Examiner_Database.xml");
             using (FileStream fs = new FileStream(ScanResultPath, FileMode.Create)) OpenFile.SerializeTo(fs);
 
             #if DEBUG

@@ -55,6 +55,13 @@ namespace DiskSpace_Examiner
         private void btnSelectFolder_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (CurrentScan != null)
+            {
+                lock (CurrentScan)
+                {
+                    if (CurrentScan.ScanRoot != null) fbd.SelectedPath = CurrentScan.ScanRoot.FullName;
+                }
+            }
             if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
             if (CurrentScan != null) CurrentScan.Dispose();
