@@ -1,4 +1,49 @@
-﻿using System;
+﻿/** Processing Sequence:
+ * 
+ *  The processing will begin with a first-pass at the root.  The first-pass examines only the immediate
+ *  subfolders and doesn't look at files.  Next, the second pass will commence at the root.  The second
+ *  pass will:
+ *      1. Iterate through each subfolder and perform a 1st pass.  Thus when the root is going through a
+ *         second-pass, the folders one level deeper receive a 1st pass.
+ *      2. Follow this by iterating through each subfolder and performing a 2nd pass.  At this point,
+ *         the 2nd-pass is fully recursive.
+ *  
+ *  When the top-level 2nd pass is complete then all folders have been enumerated but not files.  This
+ *  can detect certain large events- if a 10TB folder was deleted, then we can update the graph right
+ *  away with that.  The disk will be telling us total size and total size used even if we can't assign 
+ *  that to particular locations yet, and so the pie chart can show "still scanning..." for the 
+ *  undiscovered files.
+ *  
+ *  The third pass performs a comprehensive scan of any "new" folders that weren't present at all in the
+ *  previous scan results.  This includes recursing and counting all files in the folder and it's subfolders
+ *  (since any subfolders of a new folder must also be new).
+ *  
+ *  The fourth pass performs the same behavior as the third pass, but now is only applied to the remaining
+ *  folders- those that aren't new to this scan.  These are folders whose sizes we loaded from our previously
+ *  saved scan results        
+ *                      
+ *  1st Pass: Enumerate immediate subfolders.  Replace any entries in the enumeration that have previous
+ *            versions with references to those previous versions.  Check for previous versions that are
+ *            no longer present in the enumeration and reduce the parent's counters accordingly.  The
+ *            folder being scanned can either be a folder from a previous scan or a new folder, but when 
+ *            it is a new result folder it simply contains an empty Subfolders list and all subfolders are
+ *            identified as "new additions".  Files are not examined in this pass, only directories.
+ *  2nd Pass: Recurse into subfolders and perform 1st and 2nd pass within them.  When the 1st pass
+ *            results in a size reduction in counters, apply that here and pass it up.  Sizes can decrease
+ *            as we discover subfolders that are no longer present, but there should be no cause to increase 
+ *            any sizes at this stage as we are not enumerating files yet.  Subfolder counts can increase.
+ *  3rd Pass: Recurse into any subfolders that do not have a previous version.  Completely tabulate them
+ *            and increase size on parent when completed.  Oldest and Newest stamps will be accurate for
+ *            these leaves, but not up the tree.                     
+ *  4th Pass: Recurse into any subfolders that do have a previous version.  Completely tabulate them
+ *            and track the delta size.  Update parent with delta size.  Start this process at the bottoms
+ *            of the tree so as the have minimal impact on the display until we have new results to show.
+ *            By starting at the bottom of the tree and propagating upward, we can also propagate up
+ *            new and accurate Oldest and Newest stamps.
+ *
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -111,29 +156,7 @@ namespace DiskSpace_Examiner
                 lock (ScanResultFile.OpenFile)
                 {
                     LastCommit = Environment.TickCount;
-
-                    /** Processing Sequence:
-                     *                      
-                     *  1st Pass: Enumerate immediate subfolders.  Replace any entries in the enumeration that have previous
-                     *            versions with references to those previous versions.  Check for previous versions that are
-                     *            no longer present in the enumeration and reduce the parent's counters accordingly.  The
-                     *            folder being scanned can either be a previous result folder or a new folder, but when it is
-                     *            a new result folder it simply contains an empty Subfolders list and all subfolders are
-                     *            identified as "new additions".
-                     *  2nd Pass: Recurse into subfolders and perform 1st and 2nd pass within them.  When the 1st pass
-                     *            results in a size reduction in counters, apply that here and pass it up.  Sizes can decrease
-                     *            as we discover subfolders that are no longer present, but there should be no cause to increase 
-                     *            any sizes at this stage as we are not enumerating files yet.  Subfolder counts can increase.
-                     *  3rd Pass: Recurse into any subfolders that do not have a previous version.  Completely tabulate them
-                     *            and increase size on parent when completed.  Oldest and Newest stamps will be accurate for
-                     *            these leaves, but not up the tree.                     
-                     *  4th Pass: Recurse into any subfolders that do have a previous version.  Completely tabulate them
-                     *            and track the delta size.  Update parent with delta size.  Start this process at the bottoms
-                     *            of the tree so as the have minimal impact on the display until we have new results to show.
-                     *            By starting at the bottom of the tree and propagating upward, we can also propagate up
-                     *            new and accurate Oldest and Newest stamps.
-                     *
-                     */
+                    
                     ScanRoot = ScanResultFile.OpenFile.Find(TopPath);
                     if (ScanRoot == null) 
                     {
@@ -183,9 +206,17 @@ namespace DiskSpace_Examiner
         /// Enumerate immediate subfolders.  Replace any entries in the enumeration that have previous
         /// versions with references to those previous versions.  Check for previous versions that are
         /// no longer present in the enumeration and reduce the parent's counters accordingly.  The
-        /// folder being scanned can either be a previous result folder or a new folder, but when it is
-        /// a new result folder it simply contains an empty Subfolders list and all subfolders are
-        /// identified as "new additions".
+        /// folder being scanned can either be a folder from a previous scan or a new folder, but when 
+        /// it is a new result folder it simply contains an empty Subfolders list and all subfolders are
+        /// identified as "new additions".  Files are not examined in this pass, only directories.
+        /// 
+        /// The second pass will commence as iterating through all the folders and performing a 1st pass
+        /// one level deeper in the tree.  Since all levels will experience a first pass followed by a
+        /// 2nd pass, there is no need to keep track of which folders are in which state- they will all
+        /// be run through exactly one 1st pass, one 2nd pass, and either a 3rd or 4th pass.  Since the
+        /// 1st pass involves a comparison to any retained results from previous scans (even if empty), 
+        /// it doesn't matter if it's a "new" directory as everything will in the next level down will 
+        /// also be discovered as new.
         /// </summary>
         DirectorySummary.DeltaCounters FirstPass(DirectorySummary Current)
         {
@@ -320,12 +351,26 @@ namespace DiskSpace_Examiner
         }
 
         /// <summary>
-        /// Recurse into any subfolders that do not have a previous version.  Completely tabulate them
+        /// Recurse into certain subfolders that do not have a previous version and completely tabulate them.
+        ///
+        /// 3rd Pass: Recurse into any subfolders that do not have a previous version.  Completely tabulate them
         /// and increase size on parent when completed.  Oldest and Newest stamps will be accurate for
-        /// these leaves, but not up the tree.
+        /// these leaves, but not up the tree.                     
+        /// 
+        /// 4th Pass: Recurse into any subfolders that do have a previous version.  Completely tabulate them
+        /// and track the delta size.  Update parent with delta size.  Start this process at the bottoms
+        /// of the tree so as the have minimal impact on the display until we have new results to show.
+        /// By starting at the bottom of the tree and propagating upward, we can also propagate up
+        /// new and accurate Oldest and Newest stamps.        
+        /// 
+        /// For the 3rd pass, I only scan folders that have "LastScanUtc" as being DateTime.MinValue.  In other words,
+        /// I only scan folders that are "new".  In the 4th pass, I instead scan any folder whose "LastScanUtc" is
+        /// before the current (overall) scan has started- which would basically be any folder that didn't get scanned
+        /// by the 3rd pass.  The 4th pass would only be "rescan" or "update" since the folders in the 4th pass existing 
+        /// in the retained results file from a previous scan.
         /// </summary>        
-        /// <param name="Criteria">For the third pass, this should be DateTime.MinValue.  For the fourth pass, this should
-        /// be ScanStartedUtc.  This sets the time threshold to skip processing each folder.</param>
+        /// <param name="FourthPass">If true, scan all remaining folders.  If false, perform 3rd pass and scan any "new"
+        /// folders only.</param>
         /// <param name="Completed">True if processing on Current has completed.  False if we are just quitting momentarily
         /// to update the deltas and need to revisit.</param>
         DirectorySummary.DeltaCounters ThirdOrFourthPass(DirectorySummary Current, bool FourthPass, out bool Completed)

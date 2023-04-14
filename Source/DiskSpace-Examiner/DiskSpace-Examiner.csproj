@@ -48,6 +48,7 @@
     <Compile Include="DataSize.cs" />
     <Compile Include="DirectorySummary.cs" />
     <Compile Include="DiskScan.cs" />
+    <Compile Include="DriveUtility.cs" />
     <Compile Include="FileUtility.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

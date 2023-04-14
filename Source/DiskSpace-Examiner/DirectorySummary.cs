@@ -43,17 +43,17 @@ namespace DiskSpace_Examiner
         public DirectorySummary Parent = null;        
 
         [XmlIgnore]
-        private DriveInfo m_Drive;
+        private DriveInfoKernel m_Drive;
 
         [XmlIgnore]
-        public DriveInfo Drive
+        public DriveInfoKernel Drive
         {
             get
             {
                 if (m_Drive == null)
                 {
                     DirectoryInfo di = new DirectoryInfo(FullName);
-                    m_Drive = new DriveInfo(di.Root.FullName);
+                    m_Drive = new DriveInfoKernel(di.Root.FullName);
                 }
                 return m_Drive;
             }
@@ -73,7 +73,7 @@ namespace DiskSpace_Examiner
             TotalFiles = 0;
             IsRoot = (di.Parent == null);
             this.Parent = Parent;
-            if (IsRoot) m_Drive = new DriveInfo(FullName);            
+            if (IsRoot) m_Drive = new DriveInfoKernel(FullName);            
         }
 
         public class DeltaCounters
