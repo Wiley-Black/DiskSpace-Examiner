@@ -31,4 +31,4 @@ jobs:
 #      run: nuget restore MySolution.sln
 
     - name: Build solution
-      run: msbuild DiskSpace-Examiner.sln -t:rebuild -property:Configuration=Release
+      run: msbuild Source\DiskSpace-Examiner.sln -t:rebuild -property:Configuration=Release
